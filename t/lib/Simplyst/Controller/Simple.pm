@@ -2,8 +2,12 @@ package Simplyst::Controller::Simple;
 
 use base 'Catalyst::Controller';
 
-sub from_plack :Path('/') :ActionClass('FromPlack') {
+sub from_plack :Path('/foo') :ActionClass('FromPlack') {
    A::App->to_psgi_app
+}
+
+sub from_plack2 :Path('/bar') :ActionClass('FromPlack') {
+   A::App2->to_psgi_app
 }
 
 1;
@@ -14,8 +18,24 @@ package A::App;
 use Web::Simple;
 
 sub dispatch_request {
-  sub (/) { [ 200, [ 'Content-type' => 'text/plain' ], [ 'Hello world' ] ] },
-  sub (/foo) { [ 200, [ 'Content-type' => 'text/plain' ], [ 'Hello foo' ] ] },
+  sub (/foo/...) {
+     sub (/) { [ 200, [ 'Content-type' => 'text/plain' ], [ 'Hello world' ] ] },
+     sub (/foo) { [ 200, [ 'Content-type' => 'text/plain' ], [ 'Hello foo' ] ] },
+  }
+}
+
+}
+
+BEGIN {
+package A::App2;
+
+use Web::Simple;
+
+sub dispatch_request {
+  sub (/bar/...) {
+     sub (/) { [ 200, [ 'Content-type' => 'text/plain' ], [ 'Hello world, from bar' ] ] },
+     sub (/foo) { [ 200, [ 'Content-type' => 'text/plain' ], [ 'Hello foo, from bar' ] ] },
+  }
 }
 
 }
