@@ -4,15 +4,15 @@ use strict;
 use warnings;
 use base 'Catalyst::Controller';
 
-sub from_plack :Path('/foo') :ActionClass('FromPlack') {
+sub from_plack :Path('/foo') :ActionClass('FromPSGI') {
    A::App->to_psgi_app
 }
 
-sub from_plack2 :Path('/bar') :ActionClass('FromPlack') {
+sub from_plack2 :Path('/bar') :ActionClass('FromPSGI') {
    A::App2->to_psgi_app
 }
 
-sub from_plack3 :Path('/msg') :ActionClass('FromPlack') {
+sub from_plack3 :Path('/msg') :ActionClass('FromPSGI') {
    A::App3->new(msg => 'yolo')->to_psgi_app
 }
 

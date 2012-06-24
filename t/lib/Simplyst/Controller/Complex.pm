@@ -4,11 +4,11 @@ use strict;
 use warnings;
 use base 'Catalyst::Controller';
 
-sub from_plack :Local :ActionClass('FromPlack') {
+sub from_plack :Local :ActionClass('FromPSGI') {
    A::App::Complex->new(whence => 'local')->to_psgi_app
 }
 
-sub globule :Global :ActionClass('FromPlack') {
+sub globule :Global :ActionClass('FromPSGI') {
    A::App::Complex->new(whence => 'globule')->to_psgi_app
 }
 
@@ -21,7 +21,7 @@ sub middle_chain : Chained('base') PathPart('middle') CaptureArgs(1) {
    push @{$c->stash->{args}}, @args;
 
 }
-sub end_chain : Chained('middle_chain') PathPart('end') ActionClass('FromPlack') {
+sub end_chain : Chained('middle_chain') PathPart('end') ActionClass('FromPSGI') {
    my ($self, $c, @args) = @_;
 
    my $a = join ', ', @{$c->stash->{args}};

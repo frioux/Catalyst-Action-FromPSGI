@@ -1,4 +1,4 @@
-package Catalyst::Action::FromPlack;
+package Catalyst::Action::FromPSGI;
 
 # ABSTRACT: Use a Plack app as a Catalyst action
 
