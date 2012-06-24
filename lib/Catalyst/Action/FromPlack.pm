@@ -17,16 +17,22 @@ sub nest_app {
    return $nest
 }
 
+sub snort_plack_response {
+   my ($self, $c, $r) = @_;
+
+   $c->res->status($r->code);
+   $c->res->body($r->content);
+   $c->res->headers($r->headers);
+}
+
 sub execute {
    my ($self, $controller, $c, @rest) = @_;
 
    my $app = $self->code->($controller, $c, @rest);
    my $nest = $self->nest_app($c, $app);
    my $res = res_from_psgi($nest->($c->req->env));
+   $self->snort_plack_response($c, $res);
 
-   $c->res->status($res->code);
-   $c->res->body($res->content);
-   $c->res->headers($res->headers);
    return;
 }
 
