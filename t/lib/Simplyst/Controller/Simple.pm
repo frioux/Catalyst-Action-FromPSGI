@@ -22,10 +22,8 @@ package A::App;
 use Web::Simple;
 
 sub dispatch_request {
-  sub (/foo/...) {
-     sub (/) { [ 200, [ 'Content-type' => 'text/plain' ], [ 'Hello world' ] ] },
-     sub (/foo) { [ 200, [ 'Content-type' => 'text/plain' ], [ 'Hello foo' ] ] },
-  }
+   sub (/) { [ 200, [ 'Content-type' => 'text/plain' ], [ 'Hello world' ] ] },
+   sub (/foo) { [ 200, [ 'Content-type' => 'text/plain' ], [ 'Hello foo' ] ] },
 }
 
 }
@@ -36,10 +34,8 @@ package A::App2;
 use Web::Simple;
 
 sub dispatch_request {
-  sub (/bar/...) {
-     sub (/) { [ 200, [ 'Content-type' => 'text/plain' ], [ 'Hello world, from bar' ] ] },
-     sub (/foo) { [ 200, [ 'Content-type' => 'text/plain' ], [ 'Hello foo, from bar' ] ] },
-  }
+   sub (/) { [ 200, [ 'Content-type' => 'text/plain' ], [ 'Hello world, from bar' ] ] },
+   sub (/foo) { [ 200, [ 'Content-type' => 'text/plain' ], [ 'Hello foo, from bar' ] ] },
 }
 
 }
@@ -55,9 +51,7 @@ has msg => (
 );
 
 sub dispatch_request {
-  sub (/msg/...) {
-     sub (/) { [ 200, [ 'Content-type' => 'text/plain' ], [ $_[0]->msg ] ] },
-  }
+   sub (/) { [ 200, [ 'Content-type' => 'text/plain' ], [ $_[0]->msg ] ] },
 }
 
 }
