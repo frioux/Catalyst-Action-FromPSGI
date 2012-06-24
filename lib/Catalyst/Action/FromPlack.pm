@@ -2,6 +2,8 @@ package Catalyst::Action::FromPlack;
 
 # ABSTRACT: Use a Plack app as a Catalyst action
 
+use strict;
+use warnings;
 use base 'Catalyst::Action';
 use HTTP::Message::PSGI qw(res_from_psgi);
 use Plack::App::URLMap;

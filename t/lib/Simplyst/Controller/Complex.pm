@@ -1,13 +1,11 @@
 package Simplyst::Controller::Complex;
 
+use strict;
+use warnings;
 use base 'Catalyst::Controller';
 
 sub from_plack :Local :ActionClass('FromPlack') {
    A::App::Complex->new(whence => 'local')->to_psgi_app
-}
-
-sub globule :Global :ActionClass('FromPlack') {
-   A::App::Complex->new(whence => 'globule')->to_psgi_app
 }
 
 sub globule :Global :ActionClass('FromPlack') {

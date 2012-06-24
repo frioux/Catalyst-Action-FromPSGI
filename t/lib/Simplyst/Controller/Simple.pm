@@ -1,5 +1,7 @@
 package Simplyst::Controller::Simple;
 
+use strict;
+use warnings;
 use base 'Catalyst::Controller';
 
 sub from_plack :Path('/foo') :ActionClass('FromPlack') {
