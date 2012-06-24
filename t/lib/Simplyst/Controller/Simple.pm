@@ -1,24 +1,8 @@
 package Simplyst::Controller::Simple;
 
-use Web::Simple;
+use base 'Catalyst::Component::FromPlack';
 
-sub dispatch_request {
-  sub (/) { [ 200, [ 'Content-type' => 'text/plain' ], [ 'Hello world' ] ] }
-}
-
-use HTTP::Response;
-use HTTP::Message::PSGI qw(res_from_psgi);
-
-sub _DISPATCH {
-  my ($self, $c) = @_;
-  my $res = res_from_psgi($self->to_psgi_app->($c->req->env));
-  $c->res->status($res->code);
-  $c->res->body($res->content);
-  $c->res->headers($res->headers);
-  return;
-}
-
-sub COMPONENT { shift->new }
+sub app { A::App->to_psgi_app }
 
 sub register_actions {
   my ($self, $app) = @_;
@@ -28,7 +12,7 @@ sub register_actions {
       namespace => 'simple',
       reverse => 'simple/_DISPATCH',
       class => ref($self),
-      code => $self->can('_DISPATCH'),
+      code => $self->_DISPATCH($self->app),
       attributes => {
         Path => [ '/' ],
       }
@@ -36,4 +20,16 @@ sub register_actions {
   );
 }
 
-__PACKAGE__->run_if_script;
+1;
+
+BEGIN {
+package A::App;
+
+use Web::Simple;
+
+sub dispatch_request {
+  sub (/) { [ 200, [ 'Content-type' => 'text/plain' ], [ 'Hello world' ] ] },
+  sub (/foo) { [ 200, [ 'Content-type' => 'text/plain' ], [ 'Hello foo' ] ] },
+}
+
+}
