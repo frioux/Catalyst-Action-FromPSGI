@@ -1,23 +1,9 @@
 package Simplyst::Controller::Simple;
 
-use base 'Catalyst::Component::FromPlack';
+use base 'Catalyst::Controller';
 
-sub app { A::App->to_psgi_app }
-
-sub register_actions {
-  my ($self, $app) = @_;
-  $app->dispatcher->register(
-    $app, Catalyst::Action->new(
-      name => '_DISPATCH',
-      namespace => 'simple',
-      reverse => 'simple/_DISPATCH',
-      class => ref($self),
-      code => $self->_DISPATCH($self->app),
-      attributes => {
-        Path => [ '/' ],
-      }
-    )
-  );
+sub from_plack :Path('/') :ActionClass('FromPlack') {
+   A::App->to_psgi_app
 }
 
 1;
