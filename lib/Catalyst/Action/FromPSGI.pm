@@ -18,7 +18,7 @@ sub nest_app {
    $path =~ s/\Q$rest\E$//;
    $nest->map( $path => $app );
 
-   return $nest
+   return $nest->to_app
 }
 
 sub snort_plack_response {
