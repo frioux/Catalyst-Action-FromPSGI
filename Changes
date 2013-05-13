@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - fix terminology (PSGI is spec, Plack is impl)
   - fix warning from Plack::App::URLMap
 
 0.001001  2012-11-17 16:43:57 CST6CDT
