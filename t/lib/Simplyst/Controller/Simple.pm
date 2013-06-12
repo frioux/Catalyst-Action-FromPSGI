@@ -26,6 +26,7 @@ use Web::Simple;
 sub dispatch_request {
    sub (/) { [ 200, [ 'Content-type' => 'text/plain' ], [ 'Hello world' ] ] },
    sub (/foo) { [ 200, [ 'Content-type' => 'text/plain' ], [ 'Hello foo' ] ] },
+   sub (/foo/) { [200,  [ 'Content-type' => 'text/plain' ], [ 'Hello foo/' ] ] },
 }
 
 }

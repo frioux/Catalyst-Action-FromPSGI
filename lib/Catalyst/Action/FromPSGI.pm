@@ -15,7 +15,7 @@ sub nest_app {
 
    my $path = '/' . $c->request->path;
    my $rest = join '/', @{$c->request->arguments};
-   $path =~ s/\Q$rest\E$//;
+   $path =~ s/\Q$rest\E\/?$//;
    $nest->map( $path => $app );
 
    return $nest->to_app
