@@ -9,6 +9,7 @@ use Catalyst::Test 'Simplyst';
 
 is( get('/foo/'), 'Hello world', 'successfully loaded psgi in cat controller');
 is( get('/foo/foo'), 'Hello foo', 'psgi based dispatching works');
+is( get('/foo/foo/'), 'Hello foo/', 'psgi based dispatching works');
 
 is( get('/bar/'), 'Hello world, from bar', 'successfully loaded psgi in cat controller');
 is( get('/bar/foo'), 'Hello foo, from bar', 'psgi based dispatching works');
