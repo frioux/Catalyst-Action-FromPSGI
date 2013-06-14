@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - abandon RT
   - match trailing slashes when nesting (Fitz Elliott)
 
 0.001002  2013-05-13 14:26:54 CST6CDT
