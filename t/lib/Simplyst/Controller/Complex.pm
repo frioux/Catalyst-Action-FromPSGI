@@ -4,6 +4,8 @@ use strict;
 use warnings;
 use base 'Catalyst::Controller';
 
+use Plack::Request;
+
 sub from_plack :Local :ActionClass('FromPSGI') {
    A::App::Complex->new(whence => 'local')->to_psgi_app
 }
@@ -26,6 +28,17 @@ sub end_chain : Chained('middle_chain') PathPart('end') ActionClass('FromPSGI') 
 
    my $a = join ', ', @{$c->stash->{args}};
    A::App::Complex->new(whence => "chain: $a")->to_psgi_app
+}
+
+sub post_content :Local :ActionClass('FromPSGI') {
+    my ($self, $c) = @_;
+    my $app = sub {
+        my ($env) = @_;
+        my $request = Plack::Request->new( $env );
+        my $content = $request->content;
+        return ['200', ['Content-Type' => 'text/plain'], [$content]];
+    };
+    return $app;
 }
 
 1;
