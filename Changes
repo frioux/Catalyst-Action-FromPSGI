@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - Correctly set psgi.input (thanks Fitz Elliott for the test/bug report and
+    miyagawa for helping find the fix)
 
 0.001003  2013-06-13 19:15:03 CST6CDT
   - abandon RT

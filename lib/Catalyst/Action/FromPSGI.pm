@@ -34,6 +34,14 @@ sub execute {
 
    my $app = $self->code->($controller, $c, @rest);
    my $nest = $self->nest_app($c, $app);
+
+   my $body = $c->req->body;
+   $c->req->env->{'psgi.input'} = ref $body
+      ? do { $body->seek(0, 0); $body }
+      : do { open my $fh, '<', \$body; $fh }
+   ;
+   $c->req->env->{'psgix.input.buffered'} = 1;
+
    my $res = res_from_psgi($nest->($c->req->env));
    $self->snort_psgi($c, $res);
 

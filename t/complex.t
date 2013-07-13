@@ -23,5 +23,15 @@ is( get('/chain1/frew/middle/frue/end/foo'), 'Hello chain: frew, frue world', 'a
     ok( $response->is_success, 'Response successful 2xx' );
 }
 
+{
+    my $request = POST(
+        '/complex/post_content',
+        'Content'      => 'foobar',
+        'Content-Type' => 'text/plain'
+    );
+
+    ok( my $response = request($request), 'response received' );
+    ok( $response->is_success, 'Response successful 2xx' );
+}
 done_testing();
 
