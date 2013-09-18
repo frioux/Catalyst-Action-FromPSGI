@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.001005  2013-09-18 15:56:55 America/Chicago
   - Fixed yet another psgi.input issue (thanks Wes Malone for finding this)
 
 0.001004  2013-07-12 23:41:13 CST6CDT
