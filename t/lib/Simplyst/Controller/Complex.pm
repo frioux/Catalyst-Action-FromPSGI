@@ -41,6 +41,10 @@ sub post_content :Local :ActionClass('FromPSGI') {
     return $app;
 }
 
+sub post_content2 :Local :ActionClass('FromPSGI') {
+   A::App::PostBody->new->to_psgi_app
+}
+
 1;
 
 BEGIN {
@@ -62,5 +66,17 @@ sub dispatch_request {
    },
 }
 
+package A::App::PostBody;
+
+use Web::Simple;
+
+sub dispatch_request {
+   sub (POST + %foo~) {
+      [ 200,
+         [ 'Content-type' => 'text/plain' ],
+         [ $_[1]||'' ]
+      ]
+   },
+}
 }
 

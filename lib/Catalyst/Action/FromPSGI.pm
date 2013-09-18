@@ -7,6 +7,7 @@ use warnings;
 use base 'Catalyst::Action';
 use HTTP::Message::PSGI qw(res_from_psgi);
 use Plack::App::URLMap;
+use Plack::Request;
 
 sub nest_app {
    my ($self, $c, $app) = @_;
@@ -35,7 +36,7 @@ sub execute {
    my $app = $self->code->($controller, $c, @rest);
    my $nest = $self->nest_app($c, $app);
 
-   my $body = $c->req->body;
+   my $body = Plack::Request->new($c->req->env)->body;
    $c->req->env->{'psgi.input'} = ref $body
       ? do { $body->seek(0, 0); $body }
       : do { open my $fh, '<', \$body; $fh }
