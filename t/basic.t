@@ -16,5 +16,7 @@ is( get('/bar/foo'), 'Hello foo, from bar', 'psgi based dispatching works');
 
 is( get('/msg/'), 'yolo', 'passing data into plack app works');
 
+is( get('/deferred'), 'Hello from a deferred response', 'deferred/streaming PSGI responses work');
+
 done_testing();
 

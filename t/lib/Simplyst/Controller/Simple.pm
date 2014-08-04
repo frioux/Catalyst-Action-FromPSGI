@@ -16,6 +16,16 @@ sub from_plack3 :Path('/msg') :ActionClass('FromPSGI') {
    A::App3->new(msg => 'yolo')->to_psgi_app
 }
 
+sub from_plack_deferred :Path('/deferred') :ActionClass('FromPSGI') {
+   sub {
+      my ($env) = @_;
+      return sub {
+         my $responder = shift;
+         $responder->([ 200, ['Content-type' => 'text/plain'], ['Hello from a deferred response']]);
+      }
+   }
+}
+
 1;
 
 BEGIN {
