@@ -1,4 +1,4 @@
-requires 'Catalyst::Runtime' => 5.90013;
+requires 'Catalyst::Runtime' => 5.90049_004;
 requires 'Plack' => 0.9920;
 
 on test => sub {
