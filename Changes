@@ -2,6 +2,10 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.001006  2014-08-04 20:59:58-05:00 America/Chicago
+  - Make streaming/deferal work by leveraging Catalyst from October 2013
+    (Thanks Thomas Sibley!)
+
 0.001005  2013-09-18 15:56:55 America/Chicago
   - Fixed yet another psgi.input issue (thanks Wes Malone for finding this)
 
