@@ -18,5 +18,7 @@ is( get('/msg/'), 'yolo', 'passing data into plack app works');
 
 is( get('/deferred'), 'Hello from a deferred response', 'deferred/streaming PSGI responses work');
 
+is( get('/stream'), '/woo!', 'Streaming works!');
+
 done_testing();
 

@@ -26,6 +26,25 @@ sub from_plack_deferred :Path('/deferred') :ActionClass('FromPSGI') {
    }
 }
 
+sub from_plack_stream :Path('/stream') :ActionClass('FromPSGI') {
+   my $app = sub {
+      my $env = shift;
+
+      return sub {
+         my $responder = shift;
+         my $writer = $responder->(
+            [ 200, [ 'Content-Type', 'application/json' ]]);
+
+         $writer->write('/');
+         $writer->write('w');
+         $writer->write('o');
+         $writer->write('o');
+         $writer->write('!');
+         $writer->close;
+      }
+   }
+}
+
 1;
 
 BEGIN {
